@@ -47,16 +47,17 @@ jobs:
       - name: Execute SmartUI Storybook Tests
         run: echo "Starting Storybook tests"
 
-      - name: Install Storybook Dependencies
+      - name: Install Storybook Dependencies and create storybook static build
         run: |
           cd storybook
-          npm install @lambdatest/smartui-storybook -g
-          npm install @lambdatest/smartui-cli
+          npm install
+          npm run build-storybook
 
       - name: Run Storybook Test Commands
         env:
           PROJECT_TOKEN: ${{ github.event.inputs.project_token_2 }}
         run: |
-          npm run build-storybook
+          smartui --version
+          smartui config create .smartui.json
           smartui storybook ./storybook-static --config .smartui.json
         working-directory: storybook
