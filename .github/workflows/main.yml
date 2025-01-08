@@ -50,7 +50,7 @@ jobs:
       - name: Install Storybook Dependencies and create storybook static build
         run: |
           cd storybook
-          npm install
+          npm install --peer-deps
           npm run build-storybook
 
       - name: Run Storybook Test Commands
