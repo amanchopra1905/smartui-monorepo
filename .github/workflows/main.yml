@@ -60,7 +60,7 @@ jobs:
         env:
           PROJECT_TOKEN: ${{ github.event.inputs.project_token_2 }}
         run: |
-          smartui --version
-          smartui config create .smartui.json
-          smartui storybook ./storybook-static --config .smartui.json
+          npx smartui --version
+          npx smartui config create .smartui.json
+          npx smartui storybook ./storybook-static --config .smartui.json
         working-directory: storybook
