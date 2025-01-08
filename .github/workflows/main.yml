@@ -52,8 +52,8 @@ jobs:
           cd storybook
           pwd
           npm install --legacy-peer-deps
+          npm install @lambdatest/smartui-storybook -g
           npm install @lambdatest/smartui-cli
-          npm i storybook -g
           npm run build-storybook
 
       - name: Run Storybook Test Commands
@@ -62,5 +62,5 @@ jobs:
         run: |
           npx smartui --version
           npx smartui config:create .smartui.json
-          npx smartui storybook ./storybook-static --config .smartui.json
+          smartui storybook ./storybook-static --config .smartui.json
         working-directory: storybook
