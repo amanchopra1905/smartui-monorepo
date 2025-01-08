@@ -19,36 +19,44 @@ jobs:
     name: Execute SmartUI Tests - Monorepo
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      # Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Execute SmartUI SDK tests
-      - name: Install dependencies
+      # SmartUI SDK Tests
+      - name: Execute SmartUI SDK Tests
+        run: echo "Starting SDK tests"
+
+      - name: Install SDK Dependencies
         run: |
           cd sdk
-          npm i @lambdatest/smartui-cli
+          npm install @lambdatest/smartui-cli
 
-      - name: Running Commands
+      - name: Run SDK Test Commands
         env:
           PROJECT_TOKEN: ${{ github.event.inputs.project_token_1 }}
         run: |
           npx smartui --version
           npx smartui config:create smartui-web.json
           npx smartui --config smartui-web.json exec -- mvn --quiet test -D suite=sdk-cloud.xml
-      
-      - name: Execute SmartUI Storybook tests
-      - name: Install dependencies
-        run: |
-          cd ../storybook
-          npm install @lambdatest/smartui-storybook -g
-          npm i @lambdatest/smartui-cli
+        working-directory: sdk
 
-      - name: Running Commands
+      # SmartUI Storybook Tests
+      - name: Execute SmartUI Storybook Tests
+        run: echo "Starting Storybook tests"
+
+      - name: Install Storybook Dependencies
+        run: |
+          cd storybook
+          npm install @lambdatest/smartui-storybook -g
+          npm install @lambdatest/smartui-cli
+
+      - name: Run Storybook Test Commands
         env:
           PROJECT_TOKEN: ${{ github.event.inputs.project_token_2 }}
         run: |
-          npx smartui --version
-          npx smartui config:create smartui-web.json
           npm run build-storybook
           smartui storybook ./storybook-static --config .smartui.json
+        working-directory: storybook
