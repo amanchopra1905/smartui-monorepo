@@ -50,7 +50,9 @@ jobs:
       - name: Install Storybook Dependencies and create storybook static build
         run: |
           cd storybook
+          pwd
           npm install --legacy-peer-deps
+          npm install @lambdatest/smartui-cli
           npm i storybook -g
           npm run build-storybook
 
