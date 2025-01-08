@@ -51,6 +51,7 @@ jobs:
         run: |
           cd storybook
           npm install --legacy-peer-deps
+          npm i storybook -g
           npm run build-storybook
 
       - name: Run Storybook Test Commands
